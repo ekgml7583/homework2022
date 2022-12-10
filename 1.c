@@ -6,7 +6,7 @@
 #define N 7
 #define M 8
 
-void r_Table(double(*r)[M]);
+void r_Table(int(*r)[M]);
 void c_Table(double(*c)[M]);
 void w_Table(double(*w)[M]);
 double minn(int i, int j, double(*c)[M], double(*w)[M], int(*r)[M]);
@@ -32,6 +32,23 @@ NODE* newNode(int data)
 }
 
 
+//이진트리에서 전위 순회 과정 출력
+void printPreorder(NODE* node)
+{
+	if (node == NULL)
+		return;
+
+	/* 출력 */
+	printf("%d ", node->data);
+
+	/* 왼쪽 서브 트리로 */
+	printPreorder(node->left);
+
+	/* 오른쪽 서브 트리로 */
+	printPreorder(node->right);
+}
+
+
 
 
 
@@ -46,22 +63,23 @@ int main(void) {
 	double c[M][M] = { 0,  };
 	int r[M][M] = { 0, };
 
-	for (i = 0; i < M; i++) {
+	/*for (i = 0; i < M; i++) {
 		printf("%.3lf\n",q[i]);
 		printf("\n");
-	}
+	}*/
 	
 	//weight,cost 테이블 초기화하기
 	for (i = 0; i <= N; i++) {
 		w[i][i] = q[i];
 		c[i][i] = 0;
 	}
-	for (i = 0; i <= N; i++) {
+
+	/*for (i = 0; i <= N; i++) {
 		printf("%.3lf\n", w[i][i]);
 	}
 	for (i = 0; i <= N; i++) {
 		printf("%.3lf\n", c[i][i]);
-	}
+	}*/
 
 	//weight, cost 테이블 계산 시작
 	for (l = 1; l<= N; l++) {
@@ -87,9 +105,18 @@ int main(void) {
 	//tree 출력
 	NODE* root = newNode(4);
 
-	root->left=
+	root->left = newNode(2);
+	root->right = newNode(5);
+	
+	root->left->left = newNode(1);
+	root->left->right = newNode(3);
+	root->right->right = newNode(6);
+	root->right->right->right = newNode(7);
 
-		getchar();
+	printf("전위 순회\n");
+	printPreorder(root);
+
+	getchar();
 
 	return 0;
 
